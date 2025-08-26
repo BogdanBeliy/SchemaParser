@@ -1,7 +1,10 @@
 package parser
 
 type ParserConfig struct {
-	LocalPath, RemotePath string
+	LocalSchemaPath  string `json:""`
+	RemoteSchemaPath string
+	Host             string
+	Port             string
 }
 
 func GetConfig() {}
