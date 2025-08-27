@@ -5,26 +5,59 @@ type Parser interface {
 	Get()
 }
 
+type url string
+type method string
+
 type info struct {
 	Title       string `json:"title,omitempty"`
 	Description string `json:"description,omitempty"`
 	Version     string `json:"version,"`
 }
+type server struct {
+	Url         string `json:"url,omitempty"`
+	Description string `json:"description,omitempty"`
+}
 
-type paths struct{}
+type components struct {
+	Schemas         schemas       `json:"schemas,omitempty"`
+	Parameters      parameters    `json:"parameters,omitempty"`
+	SecuritySchemes secureSchemas `json:"securitySchemes,omitempty"`
+}
+
+type parameters map[string]parametersItem
+type parametersItem struct {
+	Name            string                 `json:"name,omitempty"`
+	In              string                 `json:"in,omitempty"`
+	Description     string                 `json:"description,omitempty"`
+	Required        string                 `json:"required,omitempty"`
+	ParameterSchema map[string]interface{} `json:"schema,omitempty"`
+}
+
+type paths map[url]map[method]methodItem
+type methodItem struct {
+	Summary     string                 `json:"summary,omitempty"`
+	Description string                 `json:"description,omitempty"`
+	OperationId string                 `json:"operationId,omitempty"`
+	Tags        []string               `json:"tags,omitempty"`
+	Parameters  []methodParametersItem `json:"parameters,omitempty"`
+}
+type methodParametersItem struct {
+	parametersItem
+}
+
 type schemas struct{}
-type parameters struct{}
-type secureSchemas struct{}
-type servers struct{}
+
+type secureSchemas map[string]map[string]string
 
 type Schema struct {
 	Openapi       string        `json:"openapi,omitempty"`
 	Info          info          `json:"info,omitempty"`
+	Servers       []server      `json:"servers,omitempty"`
 	Paths         paths         `json:"paths,omitempty"`
-	Schemas       schemas       `json:"schemas,omitempty"`
-	Parameters    parameters    `json:"parameters,omitempty"`
+	Components    components    `json:"components,omitempty"`
 	SecureSchemes secureSchemas `json:"securitySchemes,omitempty"`
-	Servers       servers       `json:"servers,omitempty"`
+	// Tags
+	// externalDocs
 }
 
 func (rs *Schema) Get(key string) *Schema {
