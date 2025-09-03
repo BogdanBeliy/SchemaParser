@@ -7,6 +7,8 @@ type Parser interface {
 
 type url string
 type method string
+type statusCode string
+type authType string
 
 type info struct {
 	Title       string `json:"title,omitempty"`
@@ -26,20 +28,22 @@ type components struct {
 
 type parameters map[string]parametersItem
 type parametersItem struct {
-	Name            string                 `json:"name,omitempty"`
-	In              string                 `json:"in,omitempty"`
-	Description     string                 `json:"description,omitempty"`
-	Required        string                 `json:"required,omitempty"`
-	ParameterSchema map[string]interface{} `json:"schema,omitempty"`
+	Name            string                     `json:"name,omitempty"`
+	In              string                     `json:"in,omitempty"`
+	Description     string                     `json:"description,omitempty"`
+	Required        string                     `json:"required,omitempty"`
+	ParameterSchema map[string]interface{}     `json:"schema,omitempty"`
+	Security        []map[authType]interface{} `json:"security,omitempty"`
 }
 
 type paths map[url]map[method]methodItem
 type methodItem struct {
-	Summary     string                 `json:"summary,omitempty"`
-	Description string                 `json:"description,omitempty"`
-	OperationId string                 `json:"operationId,omitempty"`
-	Tags        []string               `json:"tags,omitempty"`
-	Parameters  []methodParametersItem `json:"parameters,omitempty"`
+	Summary     string                                `json:"summary,omitempty"`
+	Description string                                `json:"description,omitempty"`
+	OperationId string                                `json:"operationId,omitempty"`
+	Tags        []string                              `json:"tags,omitempty"`
+	Parameters  []methodParametersItem                `json:"parameters,omitempty"`
+	Responses   map[statusCode]map[string]interface{} `json:"responses,omitempty"`
 }
 type methodParametersItem struct {
 	parametersItem
