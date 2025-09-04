@@ -9,6 +9,8 @@ type url string
 type method string
 type statusCode string
 type authType string
+type refName string
+type refField string
 
 type info struct {
 	Title       string `json:"title,omitempty"`
@@ -49,7 +51,11 @@ type methodParametersItem struct {
 	parametersItem
 }
 
-type schemas struct{}
+type schemas map[refName]refItem
+type refItem struct {
+	Type       string                   `json:"type,omitempty"`
+	Properties map[refField]interface{} `json:"properties,omitempty"`
+}
 
 type secureSchemas map[string]map[string]string
 

@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	_, err := parser.NewRemoteSchema("https://flow-stage.intechs.by/api/schema/?format=json")
+	_, err := parser.NewRemoteSchema("http://localhost:8000/api/schema/?format=json")
 	if err != nil {
 		log.Fatal(err)
 	}
