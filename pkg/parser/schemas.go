@@ -1,8 +1,45 @@
 package parser
 
-type Parser interface {
-	Set()
-	Get()
+import (
+	"encoding/json"
+	"io"
+	"net/http"
+	"os"
+)
+
+type RemoteSchema struct {
+	Schema
+}
+
+type LocalSchema struct {
+	Schema
+}
+
+func NewLocalSchema(path string) *LocalSchema {
+	schema := LocalSchema{}
+	return &schema
+}
+
+func NewRemoteSchema(path string) (*RemoteSchema, error) {
+	resp, err := http.Get(path)
+	if err != nil {
+		return nil, err
+	}
+	schema := RemoteSchema{}
+	b, _ := io.ReadAll(resp.Body)
+	json.Unmarshal(b, &schema)
+
+	file, _ := os.Create("schema.json")
+	encoder := json.NewEncoder(file)
+	encoder.SetIndent("", "    ")
+
+	if err := encoder.Encode(schema); err != nil {
+		return nil, err
+	}
+
+	defer file.Close()
+	defer resp.Body.Close()
+	return &schema, nil
 }
 
 type (

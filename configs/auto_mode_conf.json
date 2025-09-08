@@ -1,10 +1,10 @@
 [
     {
-        "service_name": "Shield-Center",
-        "schema_url": "https://ad-stage.intechs.by/api/schema/?format=json",
+        "service_name": "Flow Admin",
+        "schema_url": "http://localhost:8000/api/schema/?format=json",
         "r_schema": "https",
-        "r_url": "flow-stage.intechs.by",
-        "r_port": "443",
+        "r_url": "localhost",
+        "r_port": "8000",
         "add_raw_schema": false,
         "filter_pattern": "",
         "version_regex": "\\w\\d",

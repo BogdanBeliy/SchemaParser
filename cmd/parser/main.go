@@ -1,8 +1,21 @@
 package main
 
+import (
+	"log"
+
+	"github.com/BogdanBeliy/SchemaParser/pkg/parser"
+)
+
+func init() {
+	err := parser.LoadDocConfig("configs/auto_mode_conf.json")
+	if err != nil {
+		log.Fatalf("Ошибка чтения конгиурации: %s", err)
+	}
+}
+
 func main() {
-	// _, err := parser.NewRemoteSchema("http://localhost:8000/api/schema/?format=json")
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
+	for _, v := range parser.DocConfigs {
+		p := parser.NewConvertor(v)
+		p.RunConvertation()
+	}
 }

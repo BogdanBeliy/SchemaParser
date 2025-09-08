@@ -1,6 +1,6 @@
 package parser
 
-type ProxyConf []ProxySettings
+type ProxyConfigs []ProxySettings
 
 type ProxySettings struct {
 	Schema          string   `json:"schema"`

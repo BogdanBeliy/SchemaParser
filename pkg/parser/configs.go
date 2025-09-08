@@ -2,9 +2,10 @@ package parser
 
 import (
 	"encoding/json"
-	"fmt"
 	"os"
 )
+
+var DocConfigs []DocConf
 
 type DocConf struct {
 	// Конфигурация для проксирвоания и парса схемы
@@ -22,12 +23,13 @@ type DocConf struct {
 	Duplicates          bool   `json:"duplicates"`
 }
 
-func LoadDocConfig(path string) (*DocConf, error) {
+func LoadDocConfig(path string) error {
 	b, err := os.ReadFile(path)
-	var conf DocConf
+	var conf []DocConf
 	if err != nil {
-		return nil, err
+		return err
 	}
 	json.Unmarshal(b, &conf)
-	fmt.Println(conf)
+	DocConfigs = conf
+	return nil
 }
