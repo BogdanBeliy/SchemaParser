@@ -5,12 +5,14 @@ type Parser interface {
 	Get()
 }
 
-type url string
-type method string
-type statusCode string
-type authType string
-type refName string
-type refField string
+type (
+	url        string
+	method     string
+	statusCode string
+	authType   string
+	refName    string
+	refField   string
+)
 
 type info struct {
 	Title       string `json:"title,omitempty"`
