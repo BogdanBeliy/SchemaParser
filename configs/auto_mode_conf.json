@@ -1,0 +1,15 @@
+[
+    {
+        "service_name": "Shield-Center",
+        "schema_url": "https://ad-stage.intechs.by/api/schema/?format=json",
+        "r_schema": "https",
+        "r_url": "flow-stage.intechs.by",
+        "r_port": "443",
+        "add_raw_schema": false,
+        "filter_pattern": "",
+        "version_regex": "\\w\\d",
+        "first_version": "v1",
+        "raise_version_missing": false,
+        "duplicates": false
+    }
+]

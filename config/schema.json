@@ -1,6 +1,0 @@
-{
-    "local_schema_path": "config/schemas/",
-    "remote_schema_path": "https://ad-stage.intechs.by/api/schema?format=json",
-    "service_host": "",
-    "service_port": ""
-}
