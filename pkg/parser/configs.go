@@ -2,6 +2,7 @@ package parser
 
 import (
 	"encoding/json"
+	"log"
 	"os"
 )
 
@@ -21,9 +22,11 @@ type DocConf struct {
 	RaiseVersionMissing bool   `json:"raise_version_missing"`
 	DelPrefixCount      int    `json:"del_prefix_count,omitempty"`
 	Duplicates          bool   `json:"duplicates"`
+	ClearVersion        bool   `json:"clear_version,omitempty"`
 }
 
 func LoadDocConfig(path string) error {
+	log.Println("Start load config")
 	b, err := os.ReadFile(path)
 	var conf []DocConf
 	if err != nil {
@@ -31,5 +34,6 @@ func LoadDocConfig(path string) error {
 	}
 	json.Unmarshal(b, &conf)
 	DocConfigs = conf
+	log.Println("End load config")
 	return nil
 }

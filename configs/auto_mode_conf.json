@@ -2,14 +2,16 @@
     {
         "service_name": "Flow Admin",
         "schema_url": "http://localhost:8000/api/schema/?format=json",
-        "r_schema": "https",
+        "r_schema": "http",
         "r_url": "localhost",
         "r_port": "8000",
         "add_raw_schema": false,
         "filter_pattern": "",
-        "version_regex": "\\w\\d",
         "first_version": "v1",
+        "duplicates": false,
+        "clear_version": false,
+        "version_regex": "\\w\\d",
         "raise_version_missing": false,
-        "duplicates": false
+        "timeout_duration": 10
     }
 ]

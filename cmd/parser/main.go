@@ -9,13 +9,13 @@ import (
 func init() {
 	err := parser.LoadDocConfig("configs/auto_mode_conf.json")
 	if err != nil {
-		log.Fatalf("Ошибка чтения конгиурации: %s", err)
+		log.Fatalf("Ошибка чтения конфигурации: %s", err)
 	}
 }
 
 func main() {
 	for _, v := range parser.DocConfigs {
 		p := parser.NewConvertor(v)
-		p.RunConvertation()
+		p.RunConversion()
 	}
 }

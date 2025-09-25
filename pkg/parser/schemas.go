@@ -85,14 +85,15 @@ type methodItem struct {
 	Tags        []string                              `json:"tags,omitempty"`
 	Parameters  []methodParametersItem                `json:"parameters,omitempty"`
 	Responses   map[statusCode]map[string]interface{} `json:"responses,omitempty"`
-	RequestBody interface{}                           `json:"requestBody,omitempty"`
+	RequestBody map[string]interface{}                `json:"requestBody,omitempty"`
+	Security    []map[string]interface{}              `json:"security,omitempty"`
 }
 
 type methodParametersItem struct {
 	parametersItem
 }
 
-type schemas map[refName]refItem
+type schemas map[string]refItem
 type refItem struct {
 	Type        string                   `json:"type,omitempty"`
 	Properties  map[refField]interface{} `json:"properties,omitempty"`
@@ -112,12 +113,4 @@ type Schema struct {
 	SecureSchemes secureSchemas `json:"securitySchemes,omitempty"`
 	// Tags
 	// externalDocs
-}
-
-func (rs *Schema) Get(key string) *Schema {
-	return rs
-}
-
-func (rs *Schema) Set(key string, value interface{}) *Schema {
-	return rs
 }
