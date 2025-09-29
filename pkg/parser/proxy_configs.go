@@ -30,16 +30,16 @@ func NewProxySettings(schema, host, port, serviceName string, path url, m method
 		Port:        port,
 		Method:      string(m),
 	}
-	if !p.checkFilterPattern(path, m, confs) {
-		p.makeUrl(path)
-		p.makeRpcName(path)
-		p.makeQueryAndPathParams(methodData)
-		p.makeBodyParams(methodData, schemasData)
-		p.checkSecurity(methodData)
-		p.checkDuplicate(ProxyConfigs)
-		ProxyConfigs[p.RPC] = p
+	if p.checkFilterPattern(path, m, confs) {
 		return
 	}
+	p.makeUrl(path)
+	p.makeRpcName(path)
+	p.makeQueryAndPathParams(methodData)
+	p.makeBodyParams(methodData, schemasData)
+	p.checkSecurity(methodData)
+	p.checkDuplicate(ProxyConfigs)
+	ProxyConfigs[p.RPC] = p
 	return
 }
 
