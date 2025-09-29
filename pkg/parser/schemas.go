@@ -11,15 +11,6 @@ type RemoteSchema struct {
 	Schema
 }
 
-type LocalSchema struct {
-	Schema
-}
-
-func NewLocalSchema(path string) *LocalSchema {
-	schema := LocalSchema{}
-	return &schema
-}
-
 func NewRemoteSchema(path string) (*RemoteSchema, error) {
 	resp, err := http.Get(path)
 	if err != nil {
@@ -111,6 +102,4 @@ type Schema struct {
 	Paths         paths         `json:"paths,omitempty"`
 	Components    components    `json:"components,omitempty"`
 	SecureSchemes secureSchemas `json:"securitySchemes,omitempty"`
-	// Tags
-	// externalDocs
 }

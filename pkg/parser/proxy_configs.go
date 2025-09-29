@@ -22,20 +22,40 @@ type ProxySettings struct {
 	TimeoutDuration int      `json:"timeout_duration,omitempty"`
 }
 
-func NewProxySettings(schema, host, port, serviceName string, path url, m method, methodData methodItem, schemasData schemas) {
+func NewProxySettings(schema, host, port, serviceName string, path url, m method, methodData methodItem, schemasData schemas, confs DocConf) {
 	p := ProxySettings{
-		Schema: schema,
-		Host:   host,
-		Port:   port,
-		Method: string(m),
+		ServiceName: serviceName,
+		Schema:      schema,
+		Host:        host,
+		Port:        port,
+		Method:      string(m),
 	}
-	p.makeUrl(path)
-	p.makeRpcName(path)
-	p.makeQueryAndPathParams(methodData)
-	p.makeBodyParams(methodData, schemasData)
-	p.checkSecurity(methodData)
-	p.checkDuplicate(ProxyConfigs)
-	ProxyConfigs[p.RPC] = p
+	if !p.checkFilterPattern(path, m, confs) {
+		p.makeUrl(path)
+		p.makeRpcName(path)
+		p.makeQueryAndPathParams(methodData)
+		p.makeBodyParams(methodData, schemasData)
+		p.checkSecurity(methodData)
+		p.checkDuplicate(ProxyConfigs)
+		ProxyConfigs[p.RPC] = p
+		return
+	}
+	return
+}
+
+func (p *ProxySettings) checkFilterPattern(pathKey url, m method, confs DocConf) bool {
+	if len(confs.FilterPattern) > 0 {
+		for _, v := range confs.FilterPattern {
+			if val, ok := v[string(pathKey)]; ok {
+				for _, meth := range val {
+					if meth == string(m) {
+						return true
+					}
+				}
+			}
+		}
+	}
+	return false
 }
 
 func (p *ProxySettings) checkDuplicate(memData map[string]ProxySettings) {

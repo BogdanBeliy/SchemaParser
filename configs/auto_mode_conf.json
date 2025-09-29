@@ -6,7 +6,9 @@
         "r_url": "localhost",
         "r_port": "8000",
         "add_raw_schema": false,
-        "filter_pattern": "",
+        "filter_pattern": [{
+            "/api/v1/user/jwt/create/": ["post"]
+        }],
         "first_version": "v1",
         "duplicates": false,
         "clear_version": false,
